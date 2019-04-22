@@ -83,10 +83,10 @@ abstract class AbstractStorageEventListener implements EventListenerInterface {
 	/**
 	 * Constructor
 	 *
-	 * @param array $config
+	 * @param array $setConfig
 	 */
-	public function __construct(array $config = []) {
-		$this->config($config);
+	public function __construct(array $setConfig = []) {
+		$this->setConfig($setConfig);
 	}
 
 	/**
@@ -114,14 +114,14 @@ abstract class AbstractStorageEventListener implements EventListenerInterface {
 	 * @return string
 	 */
 	public function buildFilename($table, $entity) {
-		if ($this->_config['preserveFilename'] === true) {
+		if ($this->_setConfig['preserveFilename'] === true) {
 			return $entity['filename'];
 		}
 		$filename = $entity['id'];
-		if ($this->_config['stripUuid'] === true) {
+		if ($this->_setConfig['stripUuid'] === true) {
 			$filename = $this->stripDashes($filename);
 		}
-		if ($this->_config['preserveExtension'] === true) {
+		if ($this->_setConfig['preserveExtension'] === true) {
 			$filename = $filename . '.' . $entity['extension'];
 		}
 		return $filename;
@@ -136,13 +136,13 @@ abstract class AbstractStorageEventListener implements EventListenerInterface {
 	 */
 	public function buildPath($table, $entity) {
 		$path = '';
-		if ($this->_config['tableFolder']) {
+		if ($this->_setConfig['tableFolder']) {
 			$path .= $table->table() . DS;
 		}
-		if ($this->_config['randomPath'] === true) {
+		if ($this->_setConfig['randomPath'] === true) {
 			$path .= StorageUtils::randomPath($entity[$table->primaryKey()]);
 		}
-		if ($this->_config['uuidFolder'] === true) {
+		if ($this->_setConfig['uuidFolder'] === true) {
 			$path .= $this->stripDashes($entity[$table->primaryKey()]) . DS;
 		}
 		return $path;
@@ -174,9 +174,9 @@ abstract class AbstractStorageEventListener implements EventListenerInterface {
 	 * @return boolean
 	 */
 	protected function _modelFilter(Event $event) {
-		if (is_array($this->_config['models'])) {
+		if (is_array($this->_setConfig['models'])) {
 			$model = $event->data['record']['model'];
-			if (!in_array($model, $this->_config['models'])) {
+			if (!in_array($model, $this->_setConfig['models'])) {
 				return false;
 			}
 		}
@@ -194,30 +194,30 @@ abstract class AbstractStorageEventListener implements EventListenerInterface {
 	}
 
 	/**
-	 * Gets the adapter class name from the adapter config
+	 * Gets the adapter class name from the adapter setConfig
 	 *
-	 * @param string $configName Name of the configuration
-	 * @return boolean|string False if the config is not present
+	 * @param string $setConfigName Name of the setConfiguration
+	 * @return boolean|string False if the setConfig is not present
 	 */
-	protected function _getAdapterClassFromConfig($configName) {
-		$config = $this->getAdapterconfig($configName);
-		if (!empty($config['adapterClass'])) {
-			return $config['adapterClass'];
+	protected function _getAdapterClassFromConfig($setConfigName) {
+		$setConfig = $this->getAdaptersetConfig($setConfigName);
+		if (!empty($setConfig['adapterClass'])) {
+			return $setConfig['adapterClass'];
 		}
 		return false;
 	}
 
 	/**
-	 * Gets the adapter class name from the adapter configuration key and checks if
+	 * Gets the adapter class name from the adapter setConfiguration key and checks if
 	 * it is in the list of supported adapters for the listener.
 	 *
 	 * You must define a list of supported classes via AbstractStorageEventListener::$_adapterClasses.
 	 *
-	 * @param string $configName Name of the adapter configuration.
+	 * @param string $setConfigName Name of the adapter setConfiguration.
 	 * @return string|false String, the adapter class name or false if it was not found.
 	 */
-	public function getAdapterClassName($configName) {
-		$className = $this->_getAdapterClassFromConfig($configName);
+	public function getAdapterClassName($setConfigName) {
+		$className = $this->_getAdapterClassFromConfig($setConfigName);
 		if (in_array($className, $this->_adapterClasses)) {
 			$position = strripos($className, '\\');
 			$this->adapterClass = substr($className, $position + 1, strlen($className));
@@ -227,25 +227,25 @@ abstract class AbstractStorageEventListener implements EventListenerInterface {
 	}
 
 	/**
-	 * Wrapper around the singleton call to StorageManager::config
+	 * Wrapper around the singleton call to StorageManager::setConfig
 	 * Makes it easy to mock the adapter in tests.
 	 *
-	 * @param string $configName
+	 * @param string $setConfigName
 	 * @return array
 	 */
-	public function getAdapterconfig($configName) {
-		return StorageManager::config($configName);
+	public function getAdaptersetConfig($setConfigName) {
+		return StorageManager::setConfig($setConfigName);
 	}
 
 	/**
-	 * Wrapper around the singleton call to StorageManager::config
+	 * Wrapper around the singleton call to StorageManager::setConfig
 	 * Makes it easy to mock the adapter in tests.
 	 *
-	 * @param string $configName
+	 * @param string $setConfigName
 	 * @return Object
 	 */
-	public function getAdapter($configName) {
-		return StorageManager::adapter($configName);
+	public function getAdapter($setConfigName) {
+		return StorageManager::adapter($setConfigName);
 	}
 
 	/**
