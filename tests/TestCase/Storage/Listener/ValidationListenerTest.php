@@ -82,7 +82,7 @@ class ValidationListenerTest extends TestCase
             ->setMethods(['validationAvatar'])
             ->getMock();
 
-        $mockListener->expects($this->at(0))
+        $mockListener->expects($this->once())
             ->method('validationAvatar')
             ->will($this->returnValue(new Validator()));
 

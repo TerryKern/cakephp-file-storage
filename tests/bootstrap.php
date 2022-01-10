@@ -29,6 +29,11 @@ $loader->setPsr4('Cake\\', './vendor/cakephp/cakephp/src');
 $loader->setPsr4('Cake\Test\\', './vendor/cakephp/cakephp/tests');
 $loader->setPsr4('Burzum\Imagine\\', './vendor/burzum/cakephp-imagine-plugin/src');
 
+if (env('FIXTURE_SCHEMA_METADATA')) {
+    $loader = new \Cake\TestSuite\Fixture\SchemaLoader();
+    $loader->loadInternalFile(env('FIXTURE_SCHEMA_METADATA'));
+}
+
 $config = [
     'path' => dirname(__FILE__, 2) . DS,
 ];

@@ -126,7 +126,7 @@ class LocalListenerTest extends TestCase
             ->method('getStorageAdapter')
             ->will($this->returnValue($this->adapterMock));
 
-        $this->adapterMock->expects($this->at(0))
+        $this->adapterMock->expects($this->once())
             ->method('write')
             ->will($this->returnValue(true));
 
@@ -151,7 +151,7 @@ class LocalListenerTest extends TestCase
             ->method('getStorageAdapter')
             ->will($this->returnValue($this->adapterMock));
 
-        $this->adapterMock->expects($this->at(0))
+        $this->adapterMock->expects($this->once())
             ->method('delete')
             ->will($this->returnValue(true));
 

@@ -146,7 +146,7 @@ class ImageProcessingTraitTest extends FileStorageTestCase
             ],
         ];
         $this->assertEquals($result, $expected);
-        $this->assertFileNotExists($this->testPath . '95' . DS . '61' . DS . '80' . DS . 'filestorage3' . DS . 'titus.20876bcd.jpg');
+        $this->assertFileDoesNotExist($this->testPath . '95' . DS . '61' . DS . '80' . DS . 'filestorage3' . DS . 'titus.20876bcd.jpg');
         $this->assertFileExists($this->testPath . '95' . DS . '61' . DS . '80' . DS . 'filestorage3' . DS . 'titus.41e51a3f.jpg');
     }
 

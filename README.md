@@ -41,6 +41,7 @@ List of supported Adapters
 Supported CakePHP Versions
 --------------------------
 
+ * CakePHP 4.3+ -> 4.0 Branch
  * CakePHP 4.x -> 3.0 Branch
  * CakePHP 3.x -> 2.0 Branch
  * CakePHP 2.x -> 1.0 Branch
@@ -56,8 +57,8 @@ Optional but required if you want image processing out of the box:
 
  * The [Imagine Image processing plugin](https://github.com/burzum/cakephp-imagine-plugin) if you want to process and store images.
  * [FlySystem](https://github.com/thephpleague/flysystem) as alternative library over Gaufrette
- 
-You can still implement whatever file processing you want very easy. It's not tied to Imagine. 
+
+You can still implement whatever file processing you want very easy. It's not tied to Imagine.
 
 Documentation
 -------------
