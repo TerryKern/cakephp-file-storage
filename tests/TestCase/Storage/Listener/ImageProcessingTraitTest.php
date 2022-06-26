@@ -114,7 +114,15 @@ class ImageProcessingTraitTest extends FileStorageTestCase
         $listener = new TraitTestClass();
         $listener->loadImageProcessingFromConfig();
 
+// print_r($this->testPath);
+// echo "\n";
+// print_r($this->testPath);
+// echo "\n";
+// print_r($entity);
+// print_r($listener->pathBuilder());
         $path = $listener->pathBuilder()->path($entity);
+
+// print_r($path);
 
         new Folder($this->testPath . $path, true);
         copy($this->fileFixtures . 'titus.jpg', $this->testPath . $path . 'titus.jpg');
