@@ -3,3 +3,4 @@
 $routes->plugin('Burzum/FileStorage', function($routes) {
     $routes->fallbacks();
 });
+
